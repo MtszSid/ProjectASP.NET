@@ -55,9 +55,7 @@ namespace Projekt
                 return;
             }
             else if (group.Ended)
-            {
-                //Clients.Group(GroupName).broadcastMessage(group);
-            }
+            { }
             if (!group.Started)
             {
                 return;
@@ -95,8 +93,7 @@ namespace Projekt
                     group.Turn = "";
                 }
                 
-            }
-            //Clients.Group(GroupName).broadcastMessage(group);    
+            }   
         }
         public bool JoinGroup(string name, string RoomName)
         {
@@ -143,9 +140,19 @@ namespace Projekt
             return list;
         }
 
-        public void GiveUp(string GroupName)
+        public List<FullGroupElement> GetStartedGroups()
         {
-            //TODO
+            List<FullGroupElement> list = (from elem in _dictionary
+                                       where elem.Value.Started == true
+                                       select new FullGroupElement(
+                                           elem.Value.GroupId, 
+                                           elem.Value.CrossesName,
+                                           elem.Value.NoughtsName)).ToList();
+            return list;
+        }
+
+        public void GiveUp(string GroupName)
+        { 
             var clientId = this.Context.ConnectionId;
             if(_dictionary.ContainsKey(GroupName))
             {
@@ -285,6 +292,20 @@ namespace Projekt
         {
             this.GroupId = Id;
             this.playerName = Name;
+        }
+    }
+
+    public class FullGroupElement
+    {
+        public string GroupId { get; set; }
+        public string playerName1 { get; set; }
+        public string playerName2 { get; set; }
+
+        public FullGroupElement(string Id, string Name1, string Name2)
+        {
+            this.GroupId = Id;
+            this.playerName1 = Name1;
+            this.playerName2 = Name2;
         }
     }
 }

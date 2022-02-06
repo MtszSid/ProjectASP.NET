@@ -8,14 +8,22 @@
 <div id="GroupId" data-id></div>
 
 <div id="Groups">
-    <h2>Available games:</h2>
-    <br />
-    <button id="newGroup">New</button>
-    <div id="listOfGroups"></div>
+    <button id="viewChanger">Change view</button>
+    <div id="NotStarted">
+        <h2>Available games:</h2>
+        <br />
+        <button id="newGroup">New</button>
+        <div id="listOfGroups"></div>
+    </div>
+    <div id="Started" style="display:none;"">
+        <h2>Currently played games:</h2>
+        <div id="listStartedOfGroups"></div>
+    </div>
 </div>
 
 <div id="GameBoard" style="display:none; align-content:center">
     <h2>Game</h2>
+    <button id="newGame">New Game</button>
     <div id="temp_info" class="temp-info"></div>
 
     <div class="stat">

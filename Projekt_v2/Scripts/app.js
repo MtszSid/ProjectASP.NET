@@ -15,45 +15,67 @@
         function getUpdatedList() {
 
             var groups = document.getElementById("Groups");
+            var played = document.getElementById("Started");
+            var join = document.getElementById("NotStarted");
 
             if (groupId != null && groups.style.display == "none") {
                 return;
             }
 
-            mainHub.server.getGroups().done(function (result) {
-                var list = document.createElement("ul");
-                for (var i in result) {
-                    var anchor = document.createElement("a");
-                    anchor.onclick = (function (id) {
-                        return function () {
-                            var user = document.querySelector('#User');
-                            mainHub.server.joinGroup(user.dataset.name, id).done(function (result) {
-                                if (result == true) {
-                                    groupId = id;
-                                    var groups = document.getElementById("Groups");
-                                    var board = document.getElementById("GameBoard");
-                                    groups.style.display = "none";
-                                    board.style.display = "block";
-                                }
-                            });
-                        }
-                    })(result[i].GroupId);
+            if (join.style.display == "block") {
+                mainHub.server.getGroups().done(function (result) {
+                    var list = document.createElement("ul");
+                    for (var i in result) {
+                        var anchor = document.createElement("a");
+                        anchor.onclick = (function (id) {
+                            return function () {
+                                var user = document.querySelector('#User');
+                                mainHub.server.joinGroup(user.dataset.name, id).done(function (result) {
+                                    if (result == true) {
+                                        groupId = id;
+                                        var groups = document.getElementById("Groups");
+                                        var board = document.getElementById("GameBoard");
+                                        groups.style.display = "none";
+                                        board.style.display = "block";
+                                    }
+                                });
+                            }
+                        })(result[i].GroupId);
 
-                    anchor.innerText = result[i].GroupId;
+                        anchor.innerText = result[i].GroupId;
 
-                    var elem = document.createElement("li");
-                    elem.appendChild(anchor);
-                    var text = document.createTextNode("    " + result[i].playerName)
-                    elem.appendChild(text)
-                    list.appendChild(elem);
-                }
+                        var elem = document.createElement("li");
+                        elem.appendChild(anchor);
+                        var text = document.createTextNode("    " + result[i].playerName)
+                        elem.appendChild(text)
+                        list.appendChild(elem);
+                    }
 
-                var listOfGroups = document.getElementById("listOfGroups");
-                while (listOfGroups.firstChild) {
-                    listOfGroups.firstChild.remove();
-                }
-                listOfGroups.appendChild(list);
-            });
+                    var listOfGroups = document.getElementById("listOfGroups");
+                    while (listOfGroups.firstChild) {
+                        listOfGroups.firstChild.remove();
+                    }
+                    listOfGroups.appendChild(list);
+                });
+            }
+            else {
+                mainHub.server.getStartedGroups().done(function (result) {
+                    var list = document.createElement("ul");
+                    for (var i in result) {
+                        
+                        var elem = document.createElement("li");
+                        var text = document.createTextNode(result[i].GroupId + " " + result[i].playerName1 + " " + result[i].playerName2)
+                        elem.appendChild(text)
+                        list.appendChild(elem);
+                    }
+
+                    var listOfGroups = document.getElementById("listStartedOfGroups");
+                    while (listOfGroups.firstChild) {
+                        listOfGroups.firstChild.remove();
+                    }
+                    listOfGroups.appendChild(list);
+                });
+            }
         };
 
         function proposeMove(cell) {
@@ -141,6 +163,28 @@
                     board.style.display = "block";
                 }
             });
+        });
+
+        $('#newGame').click(function () {
+            mainHub.server.giveUp(groupId);
+            groupId = null;
+            var groups = document.getElementById("Groups");
+            var board = document.getElementById("GameBoard");
+            groups.style.display = "block";
+            board.style.display = "none";
+        });
+
+        $('#viewChanger').click(function () {
+            var join = document.getElementById("NotStarted");
+            var played = document.getElementById("Started");
+            if (join.style.display == "none") {
+                join.style.display = "block";
+                played.style.display = "none";
+            }
+            else{
+                join.style.display = "none";
+                played.style.display = "block";
+            }
         });
 
         $('#c00').click(function () {
