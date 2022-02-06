@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.SignalR;
+using Projekt_v2.DB;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -95,9 +96,10 @@ namespace Projekt
                 
             }   
         }
-        public bool JoinGroup(string name, string RoomName)
+        public bool JoinGroup(string name, string RoomName, string auth)
         {
             var clientId = this.Context.ConnectionId;
+            var authenticated = auth == "auth";
             if (_dictionary.ContainsKey(RoomName) && !_dictionary[RoomName].Started)
             {
                 var group = MainHub._dictionary[RoomName];
@@ -109,13 +111,14 @@ namespace Projekt
                         group.NoughtsClientId = clientId;
                         group.NoughtsName = name;
                         group.Started = true;
+                        group.NoughtsAuth = authenticated;
                         return true;
                     }
                 }
             }
             else if (!_dictionary.ContainsKey(RoomName))
             {
-                var group = new GroupInfo(RoomName, clientId, name);
+                var group = new GroupInfo(RoomName, clientId, name, authenticated);
                 this.Groups.Add(clientId, RoomName);
                 _dictionary[RoomName] = group;
                 return true;
@@ -156,26 +159,80 @@ namespace Projekt
             var clientId = this.Context.ConnectionId;
             if(_dictionary.ContainsKey(GroupName))
             {
-                var group = _dictionary[GroupName];
-                if (clientId == group.CrossesClientId)
+                var room = _dictionary[GroupName];
+                if (clientId == room.CrossesClientId)
                 {
-                    group.CrossesClientId = null;
+                    room.CrossesClientId = null;
                 }
-                if(clientId == group.NoughtsClientId)
+                if(clientId == room.NoughtsClientId)
                 {
-                    group.NoughtsClientId = null;
+                    room.NoughtsClientId = null;
+                }
+                if(room.Started && !room.UpdatedStats)
+                {
+                    if (!room.NoughtsAuth && !room.CrossesAuth)
+                    {
+                        room.UpdatedStats = true;
+                    }
+                    else
+                    {
+                        lock (room)
+                        {
+                            if (!room.UpdatedStats)
+                            {
+                                var dataContexy = CustomUserDataContext.GetDataContext();
+                                USER Noughts;
+                                USER Crosses;
+                                if (room.NoughtsAuth)
+                                {
+                                    Noughts = (from usr in dataContexy.USERs
+                                               where usr.UserName == room.NoughtsName
+                                               select usr).FirstOrDefault();
+                                }
+                                else
+                                {
+                                    Noughts = (from usr in dataContexy.USERs
+                                               where usr.UserName == "Anonymous"
+                                               select usr).FirstOrDefault();
+                                }
+                                if (room.CrossesAuth)
+                                {
+                                    Crosses = (from usr in dataContexy.USERs
+                                               where usr.UserName == room.CrossesName
+                                               select usr).FirstOrDefault();
+                                }
+                                else
+                                {
+                                    Crosses = (from usr in dataContexy.USERs
+                                               where usr.UserName == "Anonymous"
+                                               select usr).FirstOrDefault();
+                                }
+                                if (Noughts != null && Crosses != null) {
+                                    STAT stat = new STAT();
+                                    stat.USER = Noughts;
+                                    stat.USER1 = Crosses;
+                                    stat.Result = (room.Winner == null ? 0 :
+                                        (room.Winner == room.CrossesName ? Crosses.ID : Noughts.ID));
+                                    dataContexy.STATs.InsertOnSubmit(stat);
+                                    dataContexy.SubmitChanges();
+                                }
+                            }
+                        }
+                    }
                 }
                 this.Groups.Remove(clientId, GroupName);
-                group.Ended = true;
-                if(group.NoughtsClientId == null && group.CrossesClientId == null)
+                room.Ended = true;
+                if(room.NoughtsClientId == null && room.CrossesClientId == null)
                 {
-                    try 
+                    GroupInfo groupInfo;
+                    while (_dictionary.TryGetValue(GroupName, out groupInfo))
                     {
-                        GroupInfo groupInfo;
-                        _dictionary.TryRemove(GroupName, out groupInfo); 
+                        try
+                        {
+                            _dictionary.TryRemove(GroupName, out groupInfo);
+                        }
+                        catch { }
                     }
-                    catch { }
-
                 }
             }
         }
@@ -189,12 +246,15 @@ namespace Projekt
         public string NoughtsClientId { get; set; }
         public string CrossesName { get; set; }
         public string NoughtsName { get; set; }
+        public bool CrossesAuth { get; set; }
+        public bool NoughtsAuth { get; set; }
         public bool   Started { get; set; }
         public bool   Ended { get; set; }
         public string Winner { get; set; }
         public string[,] Board { get; set; }
+        public bool UpdatedStats { get; set; }
 
-        public GroupInfo(string ID, string CLientId, string name)
+        public GroupInfo(string ID, string CLientId, string name, bool auth)
         {
             this.Turn = CLientId;
             this.GroupId = ID;
@@ -206,6 +266,9 @@ namespace Projekt
             this.Ended = false;
             this.Winner = null;
             this.Board = new string[3, 3];
+            this.CrossesAuth = auth;
+            this.NoughtsAuth = false;
+            this.UpdatedStats = false;
 
             for (int i = 0; i < 3; i++)
             {

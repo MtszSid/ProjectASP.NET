@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="GameUsers" Class="GameUsersDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=DESKTOP-CFDUH25\MSSQLSERVER2;Initial Catalog=GameUsers;Persist Security Info=True;User ID=DataBaseUser" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="GameUsersConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.PASSWORD" Member="PASSWORDs">
+    <Type Name="PASSWORD">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Hash" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="Salt" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="NumberOfHashes" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="USER_PASSWORD" Member="USER" ThisKey="ID" OtherKey="ID" Type="USER" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[USER]" Member="USERs">
+    <Type Name="USER">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="USER_PASSWORD" Member="PASSWORD" ThisKey="ID" OtherKey="ID" Type="PASSWORD" Cardinality="One" />
+      <Association Name="USER_STAT" Member="STATs" ThisKey="ID" OtherKey="CrossesID" Type="STAT" />
+      <Association Name="USER_STAT1" Member="STATs1" ThisKey="ID" OtherKey="NoughtsID" Type="STAT" />
+    </Type>
+  </Table>
+  <Table Name="dbo.STATS" Member="STATs">
+    <Type Name="STAT">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CrossesID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NoughtsID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Result" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="USER_STAT" Member="USER" ThisKey="CrossesID" OtherKey="ID" Type="USER" IsForeignKey="true" />
+      <Association Name="USER_STAT1" Member="USER1" ThisKey="NoughtsID" OtherKey="ID" Type="USER" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

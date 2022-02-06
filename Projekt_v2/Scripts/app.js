@@ -22,7 +22,7 @@
                 return;
             }
 
-            if (join.style.display == "block") {
+            if (join.style.display != "none") {
                 mainHub.server.getGroups().done(function (result) {
                     var list = document.createElement("ul");
                     for (var i in result) {
@@ -30,7 +30,7 @@
                         anchor.onclick = (function (id) {
                             return function () {
                                 var user = document.querySelector('#User');
-                                mainHub.server.joinGroup(user.dataset.name, id).done(function (result) {
+                                mainHub.server.joinGroup(user.dataset.name, id, user.dataset.auth).done(function (result) {
                                     if (result == true) {
                                         groupId = id;
                                         var groups = document.getElementById("Groups");
@@ -154,7 +154,7 @@
         $('#newGroup').click(function () {
             var group_id = Math.random().toString(36).slice(2);
             var user = document.querySelector('#User');
-            mainHub.server.joinGroup(user.dataset.name, group_id).done(function (result) {
+            mainHub.server.joinGroup(user.dataset.name, group_id, user.dataset.auth).done(function (result) {
                 if (result == true) {
                     groupId = group_id;
                     var groups = document.getElementById("Groups");

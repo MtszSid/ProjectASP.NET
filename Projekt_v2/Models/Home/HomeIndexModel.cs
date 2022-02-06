@@ -8,5 +8,6 @@ namespace Projekt_v2.Models.Home
     public class HomeIndexModel
     {
         public string UserName { get; set; }
+        public string Authenticated { get; set; }
     }
 }

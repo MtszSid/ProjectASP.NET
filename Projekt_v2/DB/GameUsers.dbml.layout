@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="GameUsers">
+  <DataContextMoniker Name="/GameUsersDataContext" />
+  <nestedChildShapes>
+    <classShape Id="05c50828-0895-41a3-97c6-f3c02ce1ad56" absoluteBounds="3.5, 3.125, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/GameUsersDataContext/PASSWORD" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2fddf2ad-185a-4b8a-8d02-6b6db1dbd902" absoluteBounds="3.515, 3.585, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="1d350b05-24a5-4ca4-9526-9e31dc81a833" absoluteBounds="0.75, 2.125, 2, 1.3862939453125005">
+      <DataClassMoniker Name="/GameUsersDataContext/USER" />
+      <nestedChildShapes>
+        <elementListCompartment Id="21849198-84f5-45f0-8a86-8717f096f4aa" absoluteBounds="0.765, 2.585, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.75 : 3.31814697265625); (3.5 : 3.31814697265625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/GameUsersDataContext/USER/USER_PASSWORD" />
+      <nodes>
+        <classShapeMoniker Id="1d350b05-24a5-4ca4-9526-9e31dc81a833" />
+        <classShapeMoniker Id="05c50828-0895-41a3-97c6-f3c02ce1ad56" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="3199852a-6e2c-4488-9410-523a861d1983" absoluteBounds="5.375, 1.25, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/GameUsersDataContext/STAT" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c37c3c51-5875-41b0-8c43-338ba2e627a3" absoluteBounds="5.39, 1.71, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.75 : 2.47679768880208); (5.375 : 2.47679768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/GameUsersDataContext/USER/USER_STAT" />
+      <nodes>
+        <classShapeMoniker Id="1d350b05-24a5-4ca4-9526-9e31dc81a833" />
+        <classShapeMoniker Id="3199852a-6e2c-4488-9410-523a861d1983" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 2.23839884440104); (5.375 : 2.23839884440104)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/GameUsersDataContext/USER/USER_STAT1" />
+      <nodes>
+        <classShapeMoniker Id="1d350b05-24a5-4ca4-9526-9e31dc81a833" />
+        <classShapeMoniker Id="3199852a-6e2c-4488-9410-523a861d1983" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

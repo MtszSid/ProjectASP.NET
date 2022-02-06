@@ -10,9 +10,9 @@ namespace Projekt_v2.Models.Account
     {
         [Required]
         public string UserName { get; set; }
-
         public string Password { get; set; }
-
+        public string PasswordRetyped { get; set; }
+        public string Email { get; set; }
         public bool Anonymous { get; set; }
         public string Message { get; set; }
 

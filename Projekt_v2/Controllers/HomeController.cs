@@ -16,12 +16,14 @@ namespace Projekt_v2.Controllers
             {
                 var model = new HomeIndexModel();
                 model.UserName = User.Identity.Name;
+                model.Authenticated = "auth";
                 return View(model);
             }
             if(cookie != null)
             {
                 var model = new HomeIndexModel();
                 model.UserName = cookie.Value;
+                model.Authenticated = "not";
                 return View(model);
             }
 

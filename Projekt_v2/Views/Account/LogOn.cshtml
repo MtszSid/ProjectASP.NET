@@ -22,7 +22,30 @@
     </button>
 
 }
+<h3>Register:</h3>
+@using (var form = Html.BeginForm("Register", "Account", FormMethod.Post))
+{
+    <div>
+        User Name: @Html.TextBoxFor(m => m.UserName)
+    </div>
+    <div>
+        Password: @Html.PasswordFor(m => m.Password)
+    </div>
+    <div>
+        Repeat password: @Html.PasswordFor(m=>m.PasswordRetyped)
+    </div>
+    <div>
+        Email: @Html.TextBoxFor(m=>m.Email)
+    </div>
+    <div>
+        @Model.Message
+    </div>
+    <button>
+        Register
+    </button>
 
+}
+<h3>Anonymous:</h3>
 @using (var form = Html.BeginForm("LogOnAnonymous", "Account", FormMethod.Post))
 {
     <div>

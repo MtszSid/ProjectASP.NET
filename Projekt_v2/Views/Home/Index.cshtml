@@ -4,7 +4,7 @@
 }
 @Styles.Render("~/Content/Game.css")
 
-<div id="User" data-name=@Model.UserName></div>
+<div id="User" data-name=@Model.UserName data-auth="@Model.Authenticated"></div>
 <div id="GroupId" data-id></div>
 
 <div id="Groups">
