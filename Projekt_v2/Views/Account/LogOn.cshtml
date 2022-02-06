@@ -1,0 +1,35 @@
+﻿@model Projekt_v2.Models.Account.AccountLogOnMdel
+@{
+    ViewBag.Title = "LogOn";
+}
+
+<h2>LogOn</h2>
+
+<h3>LogIn</h3>
+@using (var form = Html.BeginForm("LogOn", "Account", FormMethod.Post))
+{
+    <div>
+        User Name: @Html.TextBoxFor(m => m.UserName)
+    </div>
+    <div>
+        Password: @Html.PasswordFor(m => m.Password)
+    </div>
+    <div>
+        @Model.Message
+    </div>
+    <button>
+        LogIn
+    </button>
+
+}
+
+@using (var form = Html.BeginForm("LogOnAnonymous", "Account", FormMethod.Post))
+{
+    <div>
+        User Name: @Html.TextBoxFor(m => m.UserName)
+    </div>
+    <button>
+        LogIn
+    </button>
+
+}

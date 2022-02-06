@@ -1,0 +1,68 @@
+﻿.gameCell{
+    width:150px;
+    height:150px;
+    margin:5px;
+    font-size:40px;
+}
+
+.temp-info {
+    font-size: 10px;
+    color: #636262;
+}
+
+.gameRow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.stat {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 30px 30px;
+    gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+    font-size: 20px;
+    align-items: center;
+
+}
+
+.crosses {
+    grid-column: 1;
+    grid-row: 1;
+    align-items: center;
+}
+
+.crossesUserName {
+    grid-column: 1;
+    grid-row: 2;
+    align-items: center;
+}
+
+.turnWinInfo {
+    grid-column: 2;
+    grid-row: 1;
+    align-items: center;
+}
+
+.turnWinInfoUserName {
+    grid-column: 2;
+    grid-row: 2;
+    align-items: center;
+}
+
+.noughts {
+    grid-column: 3;
+    grid-row: 1;
+    align-items: center;
+}
+
+.noughtsUserName {
+    grid-column: 3;
+    grid-row: 2;
+    align-items: center;
+}
+
+
+

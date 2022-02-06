@@ -1,0 +1,54 @@
+﻿@model Projekt_v2.Models.Home.HomeIndexModel
+@{
+    ViewBag.Title = "Index";
+}
+@Styles.Render("~/Content/Game.css")
+
+<div id="User" data-name=@Model.UserName></div>
+<div id="GroupId" data-id></div>
+
+<div id="Groups">
+    <h2>Available games:</h2>
+    <br />
+    <button id="newGroup">New</button>
+    <div id="listOfGroups"></div>
+</div>
+
+<div id="GameBoard" style="display:none; align-content:center">
+    <h2>Game</h2>
+    <div id="temp_info" class="temp-info"></div>
+
+    <div class="stat">
+        <div class="crosses">X</div>
+        <div id="crossesUserName" class="crossesUserName"></div>
+        <div id="turnWinInfo" class="turnWinInfo"></div>
+        <div id="turnWinInfoUserName" class="turnWinInfoUserName"></div>
+        <div class="noughts">O</div>
+        <div id="noughtsUserName" class="noughtsUserName"></div>
+    </div>
+
+
+    <div class="gameRow">
+        <button id="c00" class="gameCell"></button>
+        <button id="c10" class="gameCell"></button>
+        <button id="c20" class="gameCell"></button>
+    </div>
+    <div class="gameRow">
+        <button id="c01" class="gameCell"></button>
+        <button id="c11" class="gameCell"></button>
+        <button id="c21" class="gameCell"></button>
+    </div>
+    <div class="gameRow">
+        <button id="c02" class="gameCell"></button>
+        <button id="c12" class="gameCell"></button>
+        <button id="c22" class="gameCell"></button>
+    </div>
+
+</div>
+
+@section scripts {
+
+    <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script src="~/Scripts/app.js"></script>
+}
