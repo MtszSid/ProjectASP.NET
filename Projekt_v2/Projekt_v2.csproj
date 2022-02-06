@@ -160,6 +160,7 @@
     <Compile Include="MainHub.cs" />
     <Compile Include="Models\Account\AccountLogOnMdel.cs" />
     <Compile Include="Models\Home\HomeIndexModel.cs" />
+    <Compile Include="Models\Home\HomeStatsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -169,6 +170,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Game.css" />
+    <Content Include="Content\LogOn.css" />
+    <Content Include="Content\Stats.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -213,6 +216,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\LogOn.cshtml" />
     <Content Include="Views\Shared\_LayoutLoggedIn.cshtml" />
+    <Content Include="Views\Home\Stats.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

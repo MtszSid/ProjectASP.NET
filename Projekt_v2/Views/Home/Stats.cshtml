@@ -1,0 +1,50 @@
+﻿@model Projekt_v2.Models.Home.HomeStatsModel
+@{
+    ViewBag.Title = "Stats";
+}
+@Styles.Render("~/Content/Stats.css")
+
+<h2>Stats</h2>
+
+@using (var form = Html.BeginForm("LogOut", "Account", FormMethod.Post))
+{
+    <button>
+        LogOut
+    </button>
+
+}
+
+<div>
+    Games won: @Model.Won (@((int)(Model.Won * 100 / (Model.Won + Model.Lost + Model.Undecided)))%)
+</div>
+<div>
+    Games lost: @Model.Lost (@((int)(Model.Lost * 100 / (Model.Won + Model.Lost + Model.Undecided)))%)
+</div>
+<div>
+    Games won: @Model.Undecided (@((int)(Model.Undecided * 100 / (Model.Won + Model.Lost + Model.Undecided)))%)
+</div>
+
+@{
+    var grid = new WebGrid(canPage: true, rowsPerPage: 10);
+    grid.Bind(source: Model.Info.Items,
+              rowCount: Model.Info.TotalCount, autoSortAndPage: false);
+}
+
+<div>
+    @grid.Table(
+            tableStyle: "webgrid-table",
+            headerStyle: "webgrid-header",
+            footerStyle: "webgrid-footer",
+            alternatingRowStyle: "webgrid-alternating-row",
+            selectedRowStyle: "webgrid-selected-row",
+            rowStyle: "webgrid-row-style",
+            columns: grid.Columns(
+                grid.Column("Crosses", "Crosses"),
+                grid.Column("Noughts", "Noughts"),
+                grid.Column("Result", "Result")
+            )
+        )
+</div>
+<div>
+    @grid.Pager(WebGridPagerModes.All, "<<", "<", ">", ">>")
+</div>

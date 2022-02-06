@@ -180,41 +180,45 @@ namespace Projekt
                         {
                             if (!room.UpdatedStats)
                             {
-                                var dataContexy = CustomUserDataContext.GetDataContext();
-                                USER Noughts;
-                                USER Crosses;
-                                if (room.NoughtsAuth)
+                                using (var dataContexy = new GameUsersDataContext())
                                 {
-                                    Noughts = (from usr in dataContexy.USERs
-                                               where usr.UserName == room.NoughtsName
-                                               select usr).FirstOrDefault();
-                                }
-                                else
-                                {
-                                    Noughts = (from usr in dataContexy.USERs
-                                               where usr.UserName == "Anonymous"
-                                               select usr).FirstOrDefault();
-                                }
-                                if (room.CrossesAuth)
-                                {
-                                    Crosses = (from usr in dataContexy.USERs
-                                               where usr.UserName == room.CrossesName
-                                               select usr).FirstOrDefault();
-                                }
-                                else
-                                {
-                                    Crosses = (from usr in dataContexy.USERs
-                                               where usr.UserName == "Anonymous"
-                                               select usr).FirstOrDefault();
-                                }
-                                if (Noughts != null && Crosses != null) {
-                                    STAT stat = new STAT();
-                                    stat.USER = Noughts;
-                                    stat.USER1 = Crosses;
-                                    stat.Result = (room.Winner == null ? 0 :
-                                        (room.Winner == room.CrossesName ? Crosses.ID : Noughts.ID));
-                                    dataContexy.STATs.InsertOnSubmit(stat);
-                                    dataContexy.SubmitChanges();
+                                    USER Noughts;
+                                    USER Crosses;
+                                    if (room.NoughtsAuth)
+                                    {
+                                        Noughts = (from usr in dataContexy.USERs
+                                                   where usr.UserName == room.NoughtsName
+                                                   select usr).FirstOrDefault();
+                                    }
+                                    else
+                                    {
+                                        Noughts = (from usr in dataContexy.USERs
+                                                   where usr.UserName == "Anonymous"
+                                                   select usr).FirstOrDefault();
+                                    }
+                                    if (room.CrossesAuth)
+                                    {
+                                        Crosses = (from usr in dataContexy.USERs
+                                                   where usr.UserName == room.CrossesName
+                                                   select usr).FirstOrDefault();
+                                    }
+                                    else
+                                    {
+                                        Crosses = (from usr in dataContexy.USERs
+                                                   where usr.UserName == "Anonymous"
+                                                   select usr).FirstOrDefault();
+                                    }
+                                    if (Noughts != null && Crosses != null)
+                                    {
+                                        STAT stat = new STAT();
+                                        stat.USER = Noughts;
+                                        stat.USER1 = Crosses;
+                                        stat.Result = (room.Winner == null ? 0 :
+                                            (room.Winner == room.CrossesName ? Crosses.ID : Noughts.ID));
+                                        dataContexy.STATs.InsertOnSubmit(stat);
+                                        dataContexy.SubmitChanges();
+                                    }
+                                    room.UpdatedStats = true;
                                 }
                             }
                         }

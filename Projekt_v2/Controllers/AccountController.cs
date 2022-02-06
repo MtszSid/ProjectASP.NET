@@ -104,6 +104,12 @@ namespace Projekt_v2.Controllers
             return new EmptyResult();
         }
 
+        public ActionResult LogOut()
+        {
+            FormsAuthentication.SignOut();
+            return Redirect("/");
+        }
+
         private PASSWORD createPassword(String password)
         {
             // generate a 128-bit salt using a cryptographically strong random sequence of nonzero values

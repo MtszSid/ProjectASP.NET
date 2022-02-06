@@ -1,0 +1,131 @@
+﻿.layout {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr, 1fr;
+    gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+    font-size: 17px;
+    align-items: center;
+}
+
+.message{
+    color:firebrick;
+}
+
+.LogOnCell {
+    grid-column: 1;
+    grid-row: 1;
+    align-items: center;
+}
+.Anonymous {
+    grid-column: 1;
+    grid-row: 2;
+    align-items: center;
+}
+
+.Register {
+    grid-column: 2;
+    grid-row: 1/3;
+    align-items: center;
+}
+
+.RegisterGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+    align-items: center;
+}
+
+.RegisterGridLabel1 {
+    grid-column: 1;
+    grid-row: 1;
+    
+}
+
+.RegisterGridLabel2 {
+    grid-column: 1;
+    grid-row: 2;
+    
+}
+
+.RegisterGridLabel3 {
+    grid-column: 1;
+    grid-row: 3;
+}
+
+.RegisterGridLabel4 {
+    grid-column: 1;
+    grid-row: 4;
+}
+
+.RegisterGridInput1 {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.RegisterGridInput2 {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.RegisterGridInput3 {
+    grid-column: 2;
+    grid-row: 3;
+}
+
+.RegisterGridInput4 {
+    grid-column: 2;
+    grid-row: 4;
+}
+
+.LogInGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+    align-items: center;
+}
+
+.LogInGridLabel1 {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.LogInGridLabel2 {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.LogInGridInput1 {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.LogInGridInput2 {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.AnonGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+    align-items: center;
+}
+
+.AnonGridLabel1 {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.AnonGridInput1 {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+
