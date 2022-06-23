@@ -12,7 +12,7 @@ namespace Projekt_v2.Models.Home
         public string Noughts { get; set; }
         public string Result { get; set; }
     
-        public Info(string crosses, string noughts, string result)
+        public Info(string noughts, string crosses, string result)
         {
             Crosses = crosses;
             Noughts = noughts;
@@ -59,7 +59,7 @@ namespace Projekt_v2.Models.Home
                     case "Crosses":
                         return (from st in dataContext.STATs
                                 where st.CrossesID == usr || st.NoughtsID == usr
-                                orderby st.USER.UserName
+                                orderby st.USER1.UserName
                                 select new Info(st.USER.UserName,
                                                 st.USER1.UserName,
                                                 (st.Result == usr ? "Won" :
@@ -67,7 +67,7 @@ namespace Projekt_v2.Models.Home
                     case "Noughts":
                         return (from st in dataContext.STATs
                                 where st.CrossesID == usr || st.NoughtsID == usr
-                                orderby st.USER1.UserName
+                                orderby st.USER.UserName
                                 select new Info(st.USER.UserName,
                                                 st.USER1.UserName,
                                                 (st.Result == usr ? "Won" :
@@ -89,7 +89,7 @@ namespace Projekt_v2.Models.Home
                     case "Crosses":
                         return (from st in dataContext.STATs
                                 where st.CrossesID == usr || st.NoughtsID == usr
-                                orderby st.USER.UserName descending
+                                orderby st.USER1.UserName descending
                                 select new Info(st.USER.UserName,
                                                 st.USER1.UserName,
                                                 (st.Result == usr ? "Won" :
@@ -97,7 +97,7 @@ namespace Projekt_v2.Models.Home
                     case "Noughts":
                         return (from st in dataContext.STATs
                                 where st.CrossesID == usr || st.NoughtsID == usr
-                                orderby st.USER1.UserName descending
+                                orderby st.USER.UserName descending
                                 select new Info(st.USER.UserName,
                                                 st.USER1.UserName,
                                                 (st.Result == usr ? "Won" :

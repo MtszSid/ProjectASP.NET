@@ -13,15 +13,17 @@
     </button>
 
 }
-
+@{ 
+    var div = (Model.Won + Model.Lost + Model.Undecided == 0 ? 1 : Model.Won + Model.Lost + Model.Undecided);
+} 
 <div>
-    Games won: @Model.Won (@((int)(Model.Won * 100 / (Model.Won + Model.Lost + Model.Undecided)))%)
+    Games won: @Model.Won (@((int)(Model.Won * 100 / div))%)
 </div>
 <div>
-    Games lost: @Model.Lost (@((int)(Model.Lost * 100 / (Model.Won + Model.Lost + Model.Undecided)))%)
+    Games lost: @Model.Lost (@((int)(Model.Lost * 100 / div))%)
 </div>
 <div>
-    Games won: @Model.Undecided (@((int)(Model.Undecided * 100 / (Model.Won + Model.Lost + Model.Undecided)))%)
+    Games undecided: @Model.Undecided (@((int)(Model.Undecided * 100 / div))%)
 </div>
 
 @{
